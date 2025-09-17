@@ -29,18 +29,28 @@ def run():
     # -----------------------------
     # Sidebar: filtros
     # -----------------------------
-    st.sidebar.header("Filtros de Performance")
+    st.sidebar.header("⚙️ Filtros")
 
     # Seleção do modelo
     model_options = df_models["name"].tolist()
     selected_model = st.sidebar.selectbox("Selecione o Modelo", model_options)
     model_id = df_models[df_models["name"] == selected_model]["id"].values[0]
+    
+    # -----------------------------
+    # Seleção da métrica (apenas do tipo "performance")
+    # -----------------------------
+    metrics_desc_performance = df_metrics_desc[df_metrics_desc["type"] == "performance"]["metric_name"].tolist()
 
-    # Seleção da métrica
-    metrics_model = df_metrics[df_metrics["model_id"] == model_id]["metric_name"].unique().tolist()
+    metrics_model = df_metrics[
+        (df_metrics["model_id"] == model_id) &
+        (df_metrics["metric_name"].isin(metrics_desc_performance))
+    ]["metric_name"].unique().tolist()
+
     selected_metric = st.sidebar.selectbox("Selecione a Métrica", metrics_model)
-
+    
+    # -----------------------------
     # Seleção do período
+    # -----------------------------
     st.sidebar.markdown("### Período de Visualização")
     df_metrics["date"] = pd.to_datetime(df_metrics["date"])
     start_date = st.sidebar.date_input("Data Início", value=df_metrics["date"].min())
