@@ -1,11 +1,11 @@
+# .streamlit/config.toml
+
 [theme]
-primaryColor = "#f63366"
-# backgroundColor = "#10344b"
-backgroundColor = "#111111"
-# secondaryBackgroundColor = "#154360"
-secondaryBackgroundColor = "#393939"
-textColor = "#fafafa"
-font = "sans serif"
+primaryColor = "#8DC63F"             # Verde principal da Sicredi
+backgroundColor = "#111111"          # Fundo escuro
+secondaryBackgroundColor = "#393939" # Cards e fundos secundários
+textColor = "#FFFFFF"                 # Texto branco
+font = "sans serif"                   # Fonte padrão
 
 [server]
 enableStaticServing = true
