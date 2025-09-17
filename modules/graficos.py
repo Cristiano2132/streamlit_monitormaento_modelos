@@ -1,12 +1,43 @@
 import matplotlib.pyplot as plt
 import plotly.express as px
+import pandas as pd
 
-def plot_metric_interactive(df, metric, thresholds=None):
+
+def plot_metric_interactive(df, metric, thresholds=None, direction="neutral"):
     """
     df: DataFrame com colunas ['date', 'metric_value']
     metric: nome da métrica
-    thresholds: dict com 'attention' e 'alert'
+    thresholds: dict com 'attention' e 'alert' (valores numéricos)
+    direction: "higher_better", "lower_better", "neutral"
     """
+    import plotly.express as px
+    
+    df = df.copy()
+    df["metric_value"] = pd.to_numeric(df["metric_value"], errors="coerce")
+
+    # --- Definir cor dos pontos de acordo com direção e thresholds ---
+    colors = []
+    for val in df["metric_value"]:
+        if direction == "neutral" or thresholds is None:
+            colors.append("blue")
+        elif direction == "higher_better":
+            if thresholds.get("alert") is not None and val < thresholds["alert"]:
+                colors.append("red")
+            elif thresholds.get("attention") is not None and val < thresholds["attention"]:
+                colors.append("orange")
+            else:
+                colors.append("blue")
+        elif direction == "lower_better":
+            if thresholds.get("alert") is not None and val > thresholds["alert"]:
+                colors.append("red")
+            elif thresholds.get("attention") is not None and val > thresholds["attention"]:
+                colors.append("orange")
+            else:
+                colors.append("blue")
+        else:
+            colors.append("blue")
+
+    # --- Linha principal com cores dos pontos ---
     fig = px.line(
         df,
         x="date",
@@ -14,40 +45,40 @@ def plot_metric_interactive(df, metric, thresholds=None):
         markers=True,
         labels={"metric_value": metric, "date": "Data"}
     )
+    fig.update_traces(marker=dict(color=colors, size=10))
 
-    # Adicionar thresholds
+    # --- Adicionar thresholds ---
     if thresholds:
-        if "attention" in thresholds:
-            fig.add_hline(y=thresholds["attention"], line_dash="dash", line_color="orange", 
-                        annotation_text="Atenção", annotation_position="top left")
-        if "alert" in thresholds:
-            fig.add_hline(y=thresholds["alert"], line_dash="dash", line_color="red", 
-                        annotation_text="Alerta", annotation_position="top left")
+        if thresholds.get("attention") is not None:
+            fig.add_hline(
+                y=thresholds["attention"], line_dash="dash", line_color="orange",
+                annotation_text=f"Atenção ({thresholds['attention']})", annotation_position="top left"
+            )
+        if thresholds.get("alert") is not None:
+            fig.add_hline(
+                y=thresholds["alert"], line_dash="dash", line_color="red",
+                annotation_text=f"Alerta ({thresholds['alert']})", annotation_position="top left"
+            )
 
-    # Destaque dos pontos acima do threshold
-    if thresholds:
-        alert_value = thresholds.get("alert")
-        attention_value = thresholds.get("attention")
-        
-        if alert_value:
-            exceed_alert = df[df["metric_value"] > alert_value]
-            fig.add_scatter(x=exceed_alert["date"], y=exceed_alert["metric_value"],
-                            mode="markers", marker=dict(color="red", size=10), name="Acima Alerta")
-        
-        if attention_value:
-            exceed_attention = df[(df["metric_value"] > attention_value) & 
-                                (df["metric_value"] <= alert_value)]
-            fig.add_scatter(x=exceed_attention["date"], y=exceed_attention["metric_value"],
-                            mode="markers", marker=dict(color="orange", size=10), name="Acima Atenção")
+    # --- Legenda de cores “fantasma” ---
+    fig.add_scatter(x=[None], y=[None], mode="markers",
+                    marker=dict(color="blue", size=10), name="Bom")
+    fig.add_scatter(x=[None], y=[None], mode="markers",
+                    marker=dict(color="orange", size=10), name="Atenção")
+    fig.add_scatter(x=[None], y=[None], mode="markers",
+                    marker=dict(color="red", size=10), name="Alerta")
 
+    # --- Layout final ---
     fig.update_layout(
         xaxis_title="Data",
         yaxis_title=metric,
         legend_title="Legenda",
-        template="plotly_white"
+        template="plotly_white",
+        hovermode="x unified"
     )
 
     return fig
+
 
 def plot_metric(df, metric, thresholds=None):
     fig, ax = plt.subplots(figsize=(12, 5))

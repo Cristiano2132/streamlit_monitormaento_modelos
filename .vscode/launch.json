@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Streamlit",
+            "type": "python",
+            "request": "launch",
+            "module": "streamlit",
+            "args": [
+                "run",
+                "/Users/cristianooliveira/Documents/streamlit_monitoramento/app.py"  // caminho para seu app
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false
+        }
+    ]
+}

@@ -5,16 +5,15 @@ from streamlit_option_menu import option_menu
 import pages.risco as risco
 import pages.performance as performance
 import pages.estabilidade as estabilidade
+import pages.realizados as realizados
 
 import pandas as pd
 
-# Seletor de tema no sidebar
-theme_choice = st.sidebar.radio("🎨 Escolha o tema:", ["Light", "Dark"])
-st.session_state["theme"] = theme_choice
-
-# Carregar CSS de acordo com o tema
-css_file = "styles/light.css" if theme_choice == "Light" else "styles/dark.css"
-
+# -----------------------------
+# Configurações iniciais
+# -----------------------------
+# Aplica CSS global
+css_file = "styles/light.css"
 # Carrega CSS apenas para detalhes que o Streamlit não cobre
 with open(css_file) as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
@@ -44,8 +43,8 @@ if "metricas_info" not in st.session_state:
 with st.sidebar:
     selected = option_menu(
         menu_title="Menu",
-        options=["Risco", "Performance", "Estabilidade"],
-        icons=["shield-check", "bar-chart", "activity"],
+        options=["Risco", "Realizados","Performance", "Estabilidade"],
+        icons=["shield-check", "bar-chart", "bar-chart", "activity"],
         menu_icon="cast",
         default_index=0,
         orientation="vertical"
@@ -56,6 +55,8 @@ with st.sidebar:
 # -----------------------------
 if selected == "Risco":
     risco.run()
+elif selected == "Realizados":
+    realizados.run()
 elif selected == "Performance":
     performance.run()
 elif selected == "Estabilidade":

@@ -1,18 +1,12 @@
 # .streamlit/config.toml
 
 [theme]
-primaryColor = "#4CAF50"             # Verde harmonioso para light
-backgroundColor = "#FFFFFF"          # Fundo principal claro
-secondaryBackgroundColor = "#F5F5F5" # Cards e fundos secundários
-textColor = "#333333"                # Texto principal
+primaryColor = "#4CAF50"             # Verde principal para light
+backgroundColor = "#FFFFFF"          # Fundo da página light
+secondaryBackgroundColor = "#F5F5F5" # Cards, sidebar e backgrounds secundários
+textColor = "#333333"                # Texto padrão
 font = "sans serif"
 
-[theme-dark]
-primaryColor = "#8DC63F"
-backgroundColor = "#111111"          # fundo geral
-secondaryBackgroundColor = "#222222"  # cards e backgrounds secundários
-textColor = "#E0E0E0"                 # texto padrão
-font = "sans serif"
 
 [server]
 enableStaticServing = true

@@ -86,7 +86,7 @@ def run():
         st.metric(label="Volume de Carteira", value=format_brl_volume(vol))
 
         if last_metric_val is not None:
-            st.metric(label=f"{selected_metric}", value=last_metric_val, delta=None)
+            st.metric(label='Métrica', value=f"{selected_metric}", delta=None)
         else:
             st.warning("⚠️ Não há dados disponíveis para este modelo/métrica.")
 
@@ -107,7 +107,11 @@ def run():
                 thresholds["alert"] = thresholds_row["alert"].values[0]
 
             # Gerar gráfico interativo Plotly
-            fig = plot_metric_interactive(df_filtered, selected_metric, thresholds)
+            # Obter direção da métrica
+            direction = thresholds_row["direction"].values[0] if not thresholds_row.empty else "neutral"
+
+            # Gerar gráfico interativo Plotly
+            fig = plot_metric_interactive(df_filtered, selected_metric, thresholds, direction)
             st.plotly_chart(fig, use_container_width=True)
 
     # -----------------------------
