@@ -119,25 +119,3 @@ def run():
             st.warning("⚠️ Não há métricas disponíveis para este modelo.")
         else:
             st.dataframe(df_filtered, use_container_width=True)
-
-    # -----------------------------
-    # CSS personalizado para os cards
-    # -----------------------------
-    st.markdown("""
-    <style>
-    [data-testid="stMetric"] {
-        background-color: #393939;
-        text-align: center;
-        padding: 25px 0;
-        border-radius: 0px;
-        margin-bottom: 15px;
-        min-width: 180px;
-        color: white;
-    }
-    [data-testid="stMetricLabel"] {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    </style>
-    """, unsafe_allow_html=True)

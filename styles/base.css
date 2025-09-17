@@ -1,0 +1,53 @@
+/* ===============================
+   Global adjustments (sem cores)
+   =============================== */
+.block-container {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+/* Subtítulos */
+h2, [data-testid="stSubheader"] {
+    font-weight: 600;
+}
+
+/* Títulos menores */
+h3 {
+    font-weight: 600;
+}
+
+/* Texto padrão */
+p, span, label, .stMarkdown {
+    /* só fonte, cor vai no tema */
+}
+
+/* Expanders */
+details summary {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Cards (st.metric) */
+[data-testid="stMetric"] {
+    text-align: center;
+    padding: 25px 0;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    min-width: 180px;
+    border: 1px solid;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+[data-testid="stMetricLabel"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+}
+
+[data-testid="stMetricValue"] {
+    font-size: 1.5rem;
+    font-weight: 700;
+}

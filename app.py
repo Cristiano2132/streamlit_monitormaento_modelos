@@ -6,25 +6,26 @@ import pages.risco as risco
 import pages.performance as performance
 import pages.estabilidade as estabilidade
 
-# Função utilitária para carregar CSS
-from utils.utils import load_css  
 import pandas as pd
 
-# -----------------------------
-# Aplicar estilo global
-# -----------------------------
-load_css("styles/styles.css")
+# Seletor de tema no sidebar
+theme_choice = st.sidebar.radio("🎨 Escolha o tema:", ["Light", "Dark"])
+st.session_state["theme"] = theme_choice
 
-# -----------------------------
-# Configuração do Streamlit
-# -----------------------------
+# Carregar CSS de acordo com o tema
+css_file = "styles/light.css" if theme_choice == "Light" else "styles/dark.css"
+
+# Carrega CSS apenas para detalhes que o Streamlit não cobre
+with open(css_file) as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+# Configuração da página
 st.set_page_config(
     page_title="Monitoramento de Modelos",
     page_icon="📈",
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
 # -----------------------------
 # Inicializar datasets no session_state
 # -----------------------------

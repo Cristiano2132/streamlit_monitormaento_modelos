@@ -1,0 +1,74 @@
+/* ===============================
+   Global adjustments
+   =============================== */
+
+/* Ajuste de padding no container principal */
+.block-container {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    /* background-color removido para o Streamlit aplicar */
+}
+
+/* ===============================
+   Títulos e textos
+   =============================== */
+
+/* Subtítulos (st.subheader) */
+h2,
+[data-testid="stSubheader"] {
+    color: #8DC63F !important;
+    font-weight: 600;
+}
+
+/* Títulos menores (h3) */
+h3 {
+    color: #A5D6A7 !important;
+    font-weight: 600;
+}
+
+/* Texto padrão */
+p,
+span,
+label,
+.stMarkdown {
+    color: #E0E0E0 !important;
+}
+
+/* Título dos expanders */
+details summary {
+    color: #8DC63F !important;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* ===============================
+   Cards (st.metric)
+   =============================== */
+
+[data-testid="stMetric"] {
+    background-color: #222222;
+    text-align: center;
+    padding: 25px 0;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    min-width: 180px;
+    color: #E0E0E0;
+    border: 1px solid #444444;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+[data-testid="stMetricLabel"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #8DC63F;
+    font-weight: 600;
+}
+
+[data-testid="stMetricValue"] {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #A5D6A7;
+}

@@ -22,7 +22,8 @@ def run():
     # -----------------------------
     # Exibir tabela expandível
     # -----------------------------
-    with st.expander("👀 Ver tabela de modelos"):
+
+    with st.expander("Ver tabela de modelos", expanded=False):
         st.dataframe(df.set_index("name"), use_container_width=True)
 
     # -----------------------------
