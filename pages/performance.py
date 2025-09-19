@@ -113,16 +113,25 @@ def run():
             # Gerar gráfico interativo Plotly
             fig = plot_metric_interactive(df_filtered, selected_metric, thresholds, direction)
             st.plotly_chart(fig, use_container_width=True)
-
     # -----------------------------
     # Tabela expandível de métricas
     # -----------------------------
     st.markdown("<div style='height:2rem'></div>", unsafe_allow_html=True)
+
+    # Caixa expansível com a descrição da métrica
+    metric_desc_row = df_metrics_desc[df_metrics_desc["metric_name"] == selected_metric]
+    if not metric_desc_row.empty:
+        metric_desc_text = metric_desc_row["description"].values[0]
+        with st.expander(f"Descrição da Métrica: {selected_metric}", expanded=False):
+            st.markdown(metric_desc_text)
+
+    # Caixa expansível com a tabela
     with st.expander(f"Tabela completa das métricas do modelo: {selected_model}", expanded=False):
         if df_filtered.empty:
             st.warning("⚠️ Não há métricas disponíveis para este modelo.")
         else:
             st.dataframe(df_filtered, use_container_width=True)
+
 
     # # -----------------------------
     # # CSS personalizado para os cards dark

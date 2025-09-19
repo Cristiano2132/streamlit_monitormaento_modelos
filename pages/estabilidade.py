@@ -94,7 +94,7 @@ def run():
     # Coluna direita: gráfico interativo
     # -----------------------------
     with col2:
-        st.subheader(f"Performance do Modelo: {selected_model}")
+        st.subheader(f"Análise de Estabilidade: {selected_model}")
 
         if df_filtered.empty:
             st.warning("⚠️ Não há dados disponíveis para este modelo/métrica.")
@@ -118,6 +118,15 @@ def run():
     # Tabela expandível de métricas
     # -----------------------------
     st.markdown("<div style='height:2rem'></div>", unsafe_allow_html=True)
+
+    # Caixa expansível com a descrição da métrica
+    metric_desc_row = df_metrics_desc[df_metrics_desc["metric_name"] == selected_metric]
+    if not metric_desc_row.empty:
+        metric_desc_text = metric_desc_row["description"].values[0]
+        with st.expander(f"Descrição da Métrica: {selected_metric}", expanded=False):
+            st.markdown(metric_desc_text)
+
+    # Caixa expansível com a tabela
     with st.expander(f"Tabela completa das métricas do modelo: {selected_model}", expanded=False):
         if df_filtered.empty:
             st.warning("⚠️ Não há métricas disponíveis para este modelo.")

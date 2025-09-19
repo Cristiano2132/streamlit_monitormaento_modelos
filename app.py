@@ -44,7 +44,7 @@ with st.sidebar:
     selected = option_menu(
         menu_title="Menu",
         options=["Risco", "Realizados","Performance", "Estabilidade"],
-        icons=["shield-check", "bar-chart", "bar-chart", "activity"],
+        icons=["shield-check", "bi-check2-circle", "bar-chart", "activity"],
         menu_icon="cast",
         default_index=0,
         orientation="vertical"
