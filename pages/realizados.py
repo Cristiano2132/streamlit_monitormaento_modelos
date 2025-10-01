@@ -61,12 +61,6 @@ def run():
         df_error, ytitle, yrange, tsuffix = calculate_error(df_filtered, vol, error_view)
         st.plotly_chart(plot_pd_error(df_error, ytitle, yrange, tsuffix), use_container_width=True)
         
-        # # Criar df_contratos já agregado
-        # df_contratos = df_filtered.groupby("date").size().reset_index(name="n_contratos")
-
-        # # Plotar gráfico
-        # fig_contratos = plot_n_contratos(df_contratos, date_column="date", count_column="n_contratos")
-        # st.plotly_chart(fig_contratos, use_container_width=True)
 
     st.markdown("<div style='height:2rem'></div>", unsafe_allow_html=True)
     with st.expander(f"Tabela completa de taxas: {selected_model}", expanded=False):
